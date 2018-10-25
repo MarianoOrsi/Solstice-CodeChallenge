@@ -31,9 +31,11 @@ namespace Challenge.API.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PersonalPhoneNumber");
 
                     b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("WorkPhoneNumber");
 
                     b.HasKey("Id");
 

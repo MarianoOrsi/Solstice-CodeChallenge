@@ -17,7 +17,8 @@ namespace Challenge.API.Migrations
                     Company = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Birthdate = table.Column<DateTime>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: true),
+                    PersonalPhoneNumber = table.Column<string>(nullable: true),
+                    WorkPhoneNumber = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     PhotoUrl = table.Column<string>(nullable: true)
                 },

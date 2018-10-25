@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Challenge.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181025051619_InitialDB")]
+    [Migration("20181025135254_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,11 @@ namespace Challenge.API.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PersonalPhoneNumber");
 
                     b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("WorkPhoneNumber");
 
                     b.HasKey("Id");
 
