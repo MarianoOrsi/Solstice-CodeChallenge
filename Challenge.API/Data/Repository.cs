@@ -75,10 +75,10 @@ namespace Challenge.API.Data
             var contact = _context.Contacts.Find(photo.ContactId);
             contact.PhotoUrl = photo.Url;
 
-            var photoToRemove = await _context.Photos.FirstOrDefaultAsync(x => x.ContactId == photo.ContactId);
+            //var photoToRemove = await _context.Photos.FirstOrDefaultAsync(x => x.ContactId == photo.ContactId);
             
-            if(photoToRemove != null)
-                _context.Photos.Remove(photoToRemove);
+            //if(photoToRemove != null)
+            //    _context.Photos.Remove(photoToRemove);
 
             _context.Photos.Add(photo);
             _context.Contacts.Update(contact);
