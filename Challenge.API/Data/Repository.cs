@@ -49,7 +49,8 @@ namespace Challenge.API.Data
         {
             var contactList = await _context.Contacts.ToListAsync();
 
-            var contactsFiltered = contactList.FindAll(x => x.PersonalPhoneNumber.ToLower().Contains(phoneEmail.ToLower()) || x.WorkPhoneNumber.Contains(phoneEmail) || x.Email.ToLower().Contains(phoneEmail.ToLower()));
+            var contactsFiltered = contactList.FindAll(x => x.PersonalPhoneNumber.ToLower().Contains(phoneEmail.ToLower()) || (x.WorkPhoneNumber != null && x.WorkPhoneNumber.Contains(phoneEmail)) || x.Email.ToLower().Contains(phoneEmail.ToLower()));
+            //var contactsFiltered = contactList.FindAll(x => x.PersonalPhoneNumber.ToLower().Contains(phoneEmail.ToLower()) || x.WorkPhoneNumber.Contains(phoneEmail) || x.Email.ToLower().Contains(phoneEmail.ToLower()));
 
             return contactsFiltered.ToArray();
         }
