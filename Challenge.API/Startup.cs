@@ -35,6 +35,7 @@ namespace Challenge.API
             services.AddCors();
             services.AddScoped<IRepository, Repository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

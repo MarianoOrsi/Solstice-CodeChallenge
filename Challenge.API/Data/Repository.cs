@@ -70,6 +70,24 @@ namespace Challenge.API.Data
             return contact;
         }
 
+        public async Task<Photo> AddPhoto(Photo photo)
+        {
+            var contact = _context.Contacts.Find(photo.ContactId);
+            contact.PhotoUrl = photo.Url;
+
+            var photoToRemove = await _context.Photos.FirstOrDefaultAsync(x => x.ContactId == photo.ContactId);
+            
+            if(photoToRemove != null)
+                _context.Photos.Remove(photoToRemove);
+
+            _context.Photos.Add(photo);
+            _context.Contacts.Update(contact);
+
+            _context.SaveChanges();
+
+            return photo;
+        }
+
         public async Task<bool> ContactExists(string name, string company)
         {
             if(await _context.Contacts.AnyAsync(x => (x.Name == name && x.Company == company)))

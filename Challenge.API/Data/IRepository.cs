@@ -14,5 +14,6 @@ namespace Challenge.API.Data
          Task<bool> ContactExists(string name, string company);
          Task<bool> ContactExists(int id);
          Task<bool> ContactExists(int id, string name, string company);
+         Task<Photo> AddPhoto(Photo photo);
     }
 }
