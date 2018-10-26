@@ -19,7 +19,9 @@ namespace Challenge.API.Migrations
                     Birthdate = table.Column<DateTime>(nullable: false),
                     PersonalPhoneNumber = table.Column<string>(nullable: true),
                     WorkPhoneNumber = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
                     PhotoUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

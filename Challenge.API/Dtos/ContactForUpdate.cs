@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Challenge.API.Models;
 
 namespace Challenge.API.Dtos
 {
@@ -23,10 +24,13 @@ namespace Challenge.API.Dtos
         [Required]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string PersonalPhoneNumber { get; set; }
-        [Required]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string WorkPhoneNumber { get; set; }
         [Required]
-        public string Address { get; set; }
+        public string Street { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Country { get; set; }
     }
 }

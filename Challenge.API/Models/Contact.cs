@@ -11,7 +11,9 @@ namespace Challenge.API.Models
         public DateTime Birthdate { get; set; }
         public string PersonalPhoneNumber { get; set; }
         public string WorkPhoneNumber { get; set; }
-        public string Address { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

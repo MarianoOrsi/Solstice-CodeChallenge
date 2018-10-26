@@ -36,14 +36,22 @@ namespace Challenge.API.Data
             return contact;
         }
 
-        public async Task<Contact> GetByCountryOrCity(string phoneEmail)
+        public async Task<Contact[]> GetByCountryOrCity(string countryOrCity)
         {
-            throw new System.NotImplementedException();
+            var contactList = await _context.Contacts.ToListAsync();
+
+            var contactsFiltered = contactList.FindAll(x => x.City.ToLower().Contains(countryOrCity.ToLower()) || x.Country.ToLower().Contains(countryOrCity.ToLower()));
+
+            return contactsFiltered.ToArray();
         }
 
-        public async Task<Contact> GetByPhoneOrEmail(string phoneEmail)
+        public async Task<Contact[]> GetByPhoneOrEmail(string phoneEmail)
         {
-            throw new System.NotImplementedException();
+            var contactList = await _context.Contacts.ToListAsync();
+
+            var contactsFiltered = contactList.FindAll(x => x.PersonalPhoneNumber.ToLower().Contains(phoneEmail.ToLower()) || x.WorkPhoneNumber.Contains(phoneEmail) || x.Email.ToLower().Contains(phoneEmail.ToLower()));
+
+            return contactsFiltered.ToArray();
         }
 
         public async Task<Contact> Save(Contact contact)
@@ -64,13 +72,21 @@ namespace Challenge.API.Data
 
         public async Task<bool> ContactExists(string name, string company)
         {
-            if(await _context.Contacts.AnyAsync(x => x.Name == name && x.Company == company))
+            if(await _context.Contacts.AnyAsync(x => (x.Name == name && x.Company == company)))
                 return true;
             
             return false;
         }
 
-        public async Task<bool> ContactExistsById(int id)
+        public async Task<bool> ContactExists(int id, string name, string company)
+        {
+            if(await _context.Contacts.AnyAsync(x => (x.Id != id && x.Name == name && x.Company == company)))
+                return true;
+            
+            return false;
+        }
+
+        public async Task<bool> ContactExists(int id)
         {
             if(await _context.Contacts.AnyAsync(x => x.Id == id))
                 return true;

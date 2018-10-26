@@ -25,7 +25,9 @@ namespace Challenge.API.Controllers
         {
             contactForSave.Name = contactForSave.Name.ToLower();
             contactForSave.Company = contactForSave.Company.ToLower();
-            contactForSave.Address = contactForSave.Address.ToLower();
+            contactForSave.Street = contactForSave.Street.ToLower();
+            contactForSave.Country = contactForSave.Country.ToLower();
+            contactForSave.City = contactForSave.City.ToLower();
             contactForSave.Email = contactForSave.Email.ToLower();
 
             if(await _repo.ContactExists(contactForSave.Name, contactForSave.Company))
@@ -39,7 +41,9 @@ namespace Challenge.API.Controllers
                 Birthdate = contactForSave.BirthDate,
                 PersonalPhoneNumber = contactForSave.PersonalPhoneNumber,
                 WorkPhoneNumber = contactForSave.WorkPhoneNumber,
-                Address = contactForSave.Address
+                Street = contactForSave.Street,
+                City = contactForSave.City,
+                Country = contactForSave.Country
             };
 
             var createdContact = await _repo.Save(contactToCreate);
@@ -74,11 +78,16 @@ namespace Challenge.API.Controllers
         {
             contactForUpdate.Name = contactForUpdate.Name.ToLower();
             contactForUpdate.Company = contactForUpdate.Company.ToLower();
-            contactForUpdate.Address = contactForUpdate.Address.ToLower();
+            contactForUpdate.Street = contactForUpdate.Street.ToLower();
+            contactForUpdate.City = contactForUpdate.City.ToLower();
+            contactForUpdate.Country = contactForUpdate.Country.ToLower();
             contactForUpdate.Email = contactForUpdate.Email.ToLower();
 
-            if(!await _repo.ContactExistsById(contactForUpdate.Id))
+            if(!await _repo.ContactExists(contactForUpdate.Id))
                 return BadRequest("The contact not exists");
+
+            if(await _repo.ContactExists(contactForUpdate.Id, contactForUpdate.Name, contactForUpdate.Company))
+                return BadRequest("The contact with name " + contactForUpdate.Name + " and company " + contactForUpdate.Company + " already exists");
             
             var contactToUpdate = new Contact
             {
@@ -89,12 +98,36 @@ namespace Challenge.API.Controllers
                 Birthdate = contactForUpdate.BirthDate,
                 PersonalPhoneNumber = contactForUpdate.PersonalPhoneNumber,
                 WorkPhoneNumber = contactForUpdate.WorkPhoneNumber,
-                Address = contactForUpdate.Address
+                Street = contactForUpdate.Street,
+                City = contactForUpdate.City,
+                Country = contactForUpdate.Country
             };
 
             var updatedContact = await _repo.Update(contactToUpdate);
 
             return Ok(updatedContact);
+        }
+
+        [HttpGet("GetByCityOrCountry/{term}")]
+        public async Task<IActionResult> GetByCityOrCountry(string term)
+        {
+            var contactsFiltered = await _repo.GetByCountryOrCity(term);
+
+            if(contactsFiltered == null)
+                return NoContent();
+            
+            return Ok(contactsFiltered);
+        }
+
+        [HttpGet("GetByPhoneOrEmail/{term}")]
+        public async Task<IActionResult> GetByPhoneOrEmail(string term)
+        {
+            var contactsFiltered = await _repo.GetByPhoneOrEmail(term);
+
+            if(contactsFiltered == null)
+                return NoContent();
+            
+            return Ok(contactsFiltered);
         }
     }
 }

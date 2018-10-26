@@ -9,9 +9,10 @@ namespace Challenge.API.Data
          Task<Contact> Update(Contact contact);
          Task<Contact> Delete(int id);
          Task<Contact> Get(int id);
-         Task<Contact> GetByPhoneOrEmail(string phoneEmail);
-         Task<Contact> GetByCountryOrCity(string phoneEmail);
+         Task<Contact[]> GetByPhoneOrEmail(string phoneEmail);
+         Task<Contact[]> GetByCountryOrCity(string phoneEmail);
          Task<bool> ContactExists(string name, string company);
-         Task<bool> ContactExistsById(int id);
+         Task<bool> ContactExists(int id);
+         Task<bool> ContactExists(int id, string name, string company);
     }
 }

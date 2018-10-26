@@ -21,11 +21,13 @@ namespace Challenge.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
                     b.Property<DateTime>("Birthdate");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("Company");
+
+                    b.Property<string>("Country");
 
                     b.Property<string>("Email");
 
@@ -34,6 +36,8 @@ namespace Challenge.API.Migrations
                     b.Property<string>("PersonalPhoneNumber");
 
                     b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("Street");
 
                     b.Property<string>("WorkPhoneNumber");
 
